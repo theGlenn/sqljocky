@@ -1,0 +1,64 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ConnectionHelpers class / sqljocky Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="sqljocky" data-type="ConnectionHelpers">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../sqljocky.html">sqljocky</a> &rsaquo; <a href="../sqljocky/ConnectionHelpers.html">ConnectionHelpers</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ConnectionHelpers</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class ConnectionHelpers {
+ _releaseReuseComplete(_Connection cnx, Completer c, dynamic result) {
+   _releaseConnection(cnx);
+   _reuseConnection(cnx);
+   c.complete(result);
+ }
+ 
+ _releaseReuseCompleteError(_Connection cnx, Completer c, dynamic e) {
+   if (e is MySqlException) {
+     _releaseConnection(cnx);
+     _reuseConnection(cnx);
+   } else {
+     print("KILLING CONNECTION!");
+     _removeConnection(cnx);
+   }
+   c.completeError(e);
+ }
+}
+</pre>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-28 08:22:50.526</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

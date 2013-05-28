@@ -1,0 +1,164 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Results abstract class / results Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="results" data-type="Results">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../results.html">results</a> &rsaquo; <a href="../results/Results.html">Results</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Results</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Holds query results.</p>
+<pre class="source">
+abstract class Results {
+ /**
+  * A [Stream] of [Row]s.
+  */
+ Stream&lt;Row&gt; get stream;
+
+ /**
+  * In cases where it isn't possible to return the results in a stream, the results
+  * will be in this [List] of [Row]s instead of the [stream]. (For example, Query.executeMulti).
+  * The rows will also be found here in the [Results] return by [toResultsList]
+  */
+ List&lt;Row&gt; get rows;
+
+ /**
+  * The id of the inserted row, or [null] if no row was inserted.
+  */
+ int get insertId;
+
+ /**
+  * The number of affected rows in an update statement, or
+  * [null] in other cases.
+  */
+ int get affectedRows;
+
+ /**
+  * A list of the fields returned by the query.
+  */
+ List&lt;Field&gt; get fields;
+
+/**
+ * If this [Results] object contains a stream, converts the stream to a list
+ * and returns the new [Results] object in the future.
+ */
+ Future&lt;Results&gt; toResultsList();
+}
+</pre>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="affectedRows">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/int.html">int</a>         <strong>affectedRows</strong> <a class="anchor-link"
+            href="#affectedRows"
+            title="Permalink to Results.affectedRows">#</a>
+        </h4>
+        <div class="doc">
+<p>The number of affected rows in an update statement, or
+<code>null</code> in other cases.</p>
+<pre class="source">
+int get affectedRows;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="fields">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/List.html">List</a>&lt;<a href="../results/Field.html">Field</a>&gt;         <strong>fields</strong> <a class="anchor-link"
+            href="#fields"
+            title="Permalink to Results.fields">#</a>
+        </h4>
+        <div class="doc">
+<p>A list of the fields returned by the query.</p>
+<pre class="source">
+List&lt;Field&gt; get fields;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="insertId">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/int.html">int</a>         <strong>insertId</strong> <a class="anchor-link"
+            href="#insertId"
+            title="Permalink to Results.insertId">#</a>
+        </h4>
+        <div class="doc">
+<p>The id of the inserted row, or <code>null</code> if no row was inserted.</p>
+<pre class="source">
+int get insertId;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="rows">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/List.html">List</a>&lt;<a href="../results/Row.html">Row</a>&gt;         <strong>rows</strong> <a class="anchor-link"
+            href="#rows"
+            title="Permalink to Results.rows">#</a>
+        </h4>
+        <div class="doc">
+<p>In cases where it isn't possible to return the results in a stream, the results
+will be in this <code>List</code> of <a class="crossref" href="../results/Row.html">Row</a>s instead of the <a class="crossref" href="../results/Results.html#stream">stream</a>. (For example, Query.executeMulti).
+The rows will also be found here in the <a class="crossref" href="../results/Results.html">Results</a> return by <a class="crossref" href="../results/Results.html#toResultsList">toResultsList</a></p>
+<pre class="source">
+List&lt;Row&gt; get rows;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="stream">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_async/Stream.html">Stream</a>&lt;<a href="../results/Row.html">Row</a>&gt;         <strong>stream</strong> <a class="anchor-link"
+            href="#stream"
+            title="Permalink to Results.stream">#</a>
+        </h4>
+        <div class="doc">
+<p>A <code>Stream</code> of <a class="crossref" href="../results/Row.html">Row</a>s.</p>
+<pre class="source">
+Stream&lt;Row&gt; get stream;
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="toResultsList">
+abstract <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../results/Results.html">Results</a>&gt; <strong>toResultsList</strong>() <a class="anchor-link" href="#toResultsList"
+              title="Permalink to Results.toResultsList">#</a></h4>
+<div class="doc">
+<p>If this <a class="crossref" href="../results/Results.html">Results</a> object contains a stream, converts the stream to a list
+and returns the new <a class="crossref" href="../results/Results.html">Results</a> object in the future.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-28 08:22:50.370</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

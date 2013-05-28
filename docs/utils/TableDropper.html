@@ -57,12 +57,12 @@ class TableDropper {
    var table = _tables.removeAt(0);
    pool.query('drop table $table')
      // if it's an unknown table, ignore the error and continue
-     .then((x) {
+     .then((_) {
        afterDrop();
      })
      .catchError((e) {
        afterDrop();
-     }, test: (e) =&gt; e is MySqlError &amp;&amp; (e as MySqlError).errorNumber == ERROR_UNKNOWN_TABLE);
+     }, test: (e) =&gt; e is MySqlException &amp;&amp; (e as MySqlException).errorNumber == ERROR_UNKNOWN_TABLE);
  }
 
  /**
@@ -153,7 +153,7 @@ Future dropTables() {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-04-16 22:28:42.995</div>
+          <div>This page was generated at 2013-05-28 08:22:50.558</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
