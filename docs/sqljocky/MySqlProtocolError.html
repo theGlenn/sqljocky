@@ -34,21 +34,19 @@
 <div class="doc">
 <p><a class="crossref" href="../sqljocky/MySqlProtocolError.html">MySqlProtocolError</a> is thrown when something unexpected is read from the the MySQL protocol.</p>
 <pre class="source">
-class MySqlProtocolError implements Error {
+class MySqlProtocolError extends Error {
  final String message;
  
  /**
   * Create a [MySqlProtocolError]
   */
- const MySqlProtocolError._(this.message);
- 
- String toString() =&gt; "MySQL Protocol Error: $message";
+ MySqlProtocolError._(this.message);
 }
 </pre>
 </div>
-<h3>Implements</h3>
+<h3>Extends</h3>
 <p>
-<span class="type-box"><span class="icon-exception"></span><a href="../dart_core/Error.html">Error</a></span></p>
+<span class="type-box"><span class="icon-exception"></span><a href="../dart_core/Error.html">Error</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-exception"></span><strong>MySqlProtocolError</strong></span></p>
 <div>
 <h3>Properties</h3>
 <div class="field"><h4 id="message">
@@ -63,19 +61,15 @@ final String message
 </pre>
 </div>
 </div>
-</div>
-<div>
-<h3>Methods</h3>
-<div class="method"><h4 id="toString">
+<div class="field inherited"><h4 id="stackTrace">
 <button class="show-code">Code</button>
-<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
-              title="Permalink to MySqlProtocolError.toString">#</a></h4>
-<div class="doc">
-<div class="inherited">
-<p>Returns a string representation of this object.</p>
-<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+final <a href="http://api.dartlang.org/dart_core/StackTrace.html">StackTrace</a>         <strong>stackTrace</strong> <a class="anchor-link"
+            href="#stackTrace"
+            title="Permalink to MySqlProtocolError.stackTrace">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="http://api.dartlang.org/dart_core/Error.html">Error</a> </div><div class="doc">
 <pre class="source">
-String toString() =&gt; "MySQL Protocol Error: $message";
+external StackTrace get stackTrace;
 </pre>
 </div>
 </div>
@@ -84,7 +78,7 @@ String toString() =&gt; "MySQL Protocol Error: $message";
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-28 08:48:58.538</div>
+          <div>This page was generated at 2013-08-08 15:22:12.317</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

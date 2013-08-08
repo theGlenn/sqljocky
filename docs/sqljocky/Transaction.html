@@ -37,7 +37,7 @@ is started it retains its connection until the transaction is committed or rolle
 back. You must use the <a class="crossref" href="../sqljocky/Transaction.html#commit">commit</a> and <a class="crossref" href="../sqljocky/Transaction.html#rollback">rollback</a> methods to do this, otherwise
 the connection will not be released back to the pool.</p>
 <pre class="source">
-class Transaction extends Object with _ConnectionHelpers {
+class Transaction extends Object with _ConnectionHelpers implements QueriableConnection {
  _Connection _cnx;
  ConnectionPool _pool;
  bool _finished;
@@ -91,12 +91,7 @@ class Transaction extends Object with _ConnectionHelpers {
  Future&lt;Query&gt; prepare(String sql) {
    _checkFinished();
    var query = new Query._forTransaction(new _TransactionPool(_cnx), _cnx, sql);
-   return query._prepare()
-     .then((preparedQuery) {
-       var c = new Completer&lt;Query&gt;();
-       c.complete(query);
-       return c.future;
-     });
+   return query._prepare().then((preparedQuery) =&gt; new Future.value(query));
  }
  
  Future&lt;Results&gt; prepareExecute(String sql, List&lt;dynamic&gt; parameters) {
@@ -106,10 +101,8 @@ class Transaction extends Object with _ConnectionHelpers {
        return query.execute()
          .then((results) {
            //TODO is it right to close here? Query might still be running
-           var c = new Completer&lt;Results&gt;();
            query.close();
-           c.complete(results);
-           return c.future;
+           return new Future.value(results);
          });
      });
  }
@@ -137,6 +130,9 @@ class Transaction extends Object with _ConnectionHelpers {
 <h3>Extends</h3>
 <p>
 <span class="type-box"><span class="icon-class"></span><a href="../sqljocky/Object__ConnectionHelpers.html">Object__ConnectionHelpers</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>Transaction</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../sqljocky/QueriableConnection.html">QueriableConnection</a></span></p>
 <div>
 <h3>Methods</h3>
 <div class="method"><h4 id="commit">
@@ -171,12 +167,7 @@ Future commit() {
 Future&lt;Query&gt; prepare(String sql) {
  _checkFinished();
  var query = new Query._forTransaction(new _TransactionPool(_cnx), _cnx, sql);
- return query._prepare()
-   .then((preparedQuery) {
-     var c = new Completer&lt;Query&gt;();
-     c.complete(query);
-     return c.future;
-   });
+ return query._prepare().then((preparedQuery) =&gt; new Future.value(query));
 }
 </pre>
 </div>
@@ -194,10 +185,8 @@ Future&lt;Results&gt; prepareExecute(String sql, List&lt;dynamic&gt; parameters)
      return query.execute()
        .then((results) {
          //TODO is it right to close here? Query might still be running
-         var c = new Completer&lt;Results&gt;();
          query.close();
-         c.complete(results);
-         return c.future;
+         return new Future.value(results);
        });
    });
 }
@@ -246,7 +235,7 @@ Future rollback() {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-28 08:48:58.562</div>
+          <div>This page was generated at 2013-08-08 15:22:12.335</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

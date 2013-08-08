@@ -235,6 +235,12 @@ class Query extends Object with _ConnectionHelpers {
      _pool._reuseConnection(cnx);
    }
  }
+ 
+ _removeConnection(_Connection cnx) {
+   if (!_inTransaction) {
+     _pool._removeConnection(cnx);
+   }
+ }
 //  dynamic longData(int index, data);
 //  dynamic reset();
 //  dynamic fetch(int rows);
@@ -318,7 +324,7 @@ void close() {
 <a href="http://api.dartlang.org/dart_async/Future.html">Future</a>&lt;<a href="../results/Results.html">Results</a>&gt; <strong>execute</strong>() <a class="anchor-link" href="#execute"
               title="Permalink to Query.execute">#</a></h4>
 <div class="doc">
-<p>Executes the query, returning a future <code>Results</code> object.</p>
+<p>Executes the query, returning a future <a class="crossref" href="../results/Results.html">Results</a> object.</p>
 <pre class="source">
 Future&lt;Results&gt; execute() {
  return _prepare()
@@ -351,8 +357,8 @@ Future&lt;Results&gt; execute() {
 <p>Executes the query once for each set of 
 <span class="param">parameters</span>, and returns a future list
 of results, one for each set of parameters, that completes when the query has been executed.</p>
-<p>The <code>Results</code> in the list contain their rows in the <code>Results.rows</code> field, rather than in the
-<code>Results.stream</code> field.</p>
+<p>The <a class="crossref" href="../results/Results.html">Results</a> in the list contain their rows in the <a class="crossref" href="../results/Results.html#rows">Results.rows</a> field, rather than in the
+<a class="crossref" href="../results/Results.html#stream">Results.stream</a> field.</p>
 <pre class="source">
 Future&lt;List&lt;Results&gt;&gt; executeMulti(List&lt;List&lt;dynamic&gt;&gt; parameters) {
  return _prepare()
@@ -403,7 +409,7 @@ Future&lt;List&lt;Results&gt;&gt; executeMulti(List&lt;List&lt;dynamic&gt;&gt; p
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-28 08:48:58.554</div>
+          <div>This page was generated at 2013-08-08 15:22:12.329</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

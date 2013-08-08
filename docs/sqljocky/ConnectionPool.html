@@ -36,7 +36,7 @@
 a free connection it will be used, otherwise the query is queued until a connection is
 free. </p>
 <pre class="source">
-class ConnectionPool extends Object with _ConnectionHelpers {
+class ConnectionPool extends Object with _ConnectionHelpers implements QueriableConnection {
  final Logger log;
 
  final String _host;
@@ -177,7 +177,9 @@ class ConnectionPool extends Object with _ConnectionHelpers {
   */
  void close() {
    for (_Connection cnx in _pool) {
-     cnx.close();
+     if (cnx != null) {
+       cnx.close();
+     }
    }
  }
 
@@ -222,7 +224,7 @@ class ConnectionPool extends Object with _ConnectionHelpers {
      .then((cnx) {
        return cnx.processHandler(new _PingHandler())
          .then((x) {
-           var c = new Completer&lt;Results&gt;();
+           var c = new Completer();
            log.fine("Pinged");
            _releaseReuseComplete(cnx, c, x);
            return c.future;
@@ -239,11 +241,11 @@ class ConnectionPool extends Object with _ConnectionHelpers {
    
    return _getConnection()
      .then((cnx) {
-       var c = new Completer&lt;Results&gt;();
+       var c = new Completer();
        cnx.processHandler(new _DebugHandler())
          .then((x) {
            log.fine("Message sent");
-           _releaseReuseComplete(cnx, x, e);
+           _releaseReuseComplete(cnx, c, x);
          })
          .catchError((e) {
            _releaseReuseCompleteError(cnx, c, e);
@@ -377,14 +379,17 @@ class ConnectionPool extends Object with _ConnectionHelpers {
 <h3>Extends</h3>
 <p>
 <span class="type-box"><span class="icon-class"></span><a href="../sqljocky/Object__ConnectionHelpers.html">Object__ConnectionHelpers</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ConnectionPool</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../sqljocky/QueriableConnection.html">QueriableConnection</a></span></p>
 <div>
 <h3>Constructors</h3>
-<div class="method"><h4 id="ConnectionPool">
+<div class="method"><h4 id="">
 <button class="show-code">Code</button>
-new <strong>ConnectionPool</strong>({<a href="http://api.dartlang.org/dart_core/String.html">String</a> host: 'localhost', <a href="http://api.dartlang.org/dart_core/int.html">int</a> port: 3306, <a href="http://api.dartlang.org/dart_core/String.html">String</a> user, <a href="http://api.dartlang.org/dart_core/String.html">String</a> password, <a href="http://api.dartlang.org/dart_core/String.html">String</a> db, <a href="http://api.dartlang.org/dart_core/int.html">int</a> max: 5}) <a class="anchor-link" href="#ConnectionPool"
+new <strong>ConnectionPool</strong>({<a href="http://api.dartlang.org/dart_core/String.html">String</a> host: 'localhost', <a href="http://api.dartlang.org/dart_core/int.html">int</a> port: 3306, <a href="http://api.dartlang.org/dart_core/String.html">String</a> user, <a href="http://api.dartlang.org/dart_core/String.html">String</a> password, <a href="http://api.dartlang.org/dart_core/String.html">String</a> db, <a href="http://api.dartlang.org/dart_core/int.html">int</a> max: 5}) <a class="anchor-link" href="#"
               title="Permalink to ConnectionPool.ConnectionPool">#</a></h4>
 <div class="doc">
-<p>Creates a <a class="crossref" href="../sqljocky/ConnectionPool.html#ConnectionPool">ConnectionPool</a>. When connections are required they will connect to the
+<p>Creates a <a class="crossref" href="../sqljocky/ConnectionPool.html">ConnectionPool</a>. When connections are required they will connect to the
 
 <span class="param">db</span> on the given 
 <span class="param">host</span> and 
@@ -436,7 +441,9 @@ void <strong>close</strong>() <a class="anchor-link" href="#close"
 <pre class="source">
 void close() {
  for (_Connection cnx in _pool) {
-   cnx.close();
+   if (cnx != null) {
+     cnx.close();
+   }
  }
 }
 </pre>
@@ -447,7 +454,7 @@ void close() {
 <a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>debug</strong>() <a class="anchor-link" href="#debug"
               title="Permalink to ConnectionPool.debug">#</a></h4>
 <div class="doc">
-<p>Sends a debug message to the server. Returns a <code>Future</code> that completes
+<p>Sends a debug message to the server. Returns a <a class="crossref" href="../dart_async/Future.html">Future</a> that completes
 when the server replies.</p>
 <pre class="source">
 Future debug() {
@@ -455,11 +462,11 @@ Future debug() {
  
  return _getConnection()
    .then((cnx) {
-     var c = new Completer&lt;Results&gt;();
+     var c = new Completer();
      cnx.processHandler(new _DebugHandler())
        .then((x) {
          log.fine("Message sent");
-         _releaseReuseComplete(cnx, x, e);
+         _releaseReuseComplete(cnx, c, x);
        })
        .catchError((e) {
          _releaseReuseCompleteError(cnx, c, e);
@@ -475,7 +482,7 @@ Future debug() {
 <a href="http://api.dartlang.org/dart_async/Future.html">Future</a> <strong>ping</strong>() <a class="anchor-link" href="#ping"
               title="Permalink to ConnectionPool.ping">#</a></h4>
 <div class="doc">
-<p>Pings the server. Returns a <code>Future</code> that completes when the server replies.</p>
+<p>Pings the server. Returns a <a class="crossref" href="../dart_async/Future.html">Future</a> that completes when the server replies.</p>
 <pre class="source">
 Future ping() {
  log.info("Pinging server");
@@ -484,7 +491,7 @@ Future ping() {
    .then((cnx) {
      return cnx.processHandler(new _PingHandler())
        .then((x) {
-         var c = new Completer&lt;Results&gt;();
+         var c = new Completer();
          log.fine("Pinged");
          _releaseReuseComplete(cnx, c, x);
          return c.future;
@@ -624,7 +631,7 @@ Future&lt;Transaction&gt; startTransaction({bool consistent: false}) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-28 08:48:58.569</div>
+          <div>This page was generated at 2013-08-08 15:22:12.354</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
